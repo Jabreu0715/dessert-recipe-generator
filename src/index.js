@@ -1,5 +1,4 @@
 function displayRecipe(response) {
-  console.log("recipe generated");
   new Typewriter("#recipe", {
     strings: response.data.answer,
     autoStart: true,
@@ -19,9 +18,10 @@ function generateRecipe(event) {
 
   let apiUrl = `https://api.shecodes.io/ai/v1/generate?prompt=${prompt}&context=${context}&key=${apiKey}`;
 
-  console.log("Generating Recipe");
-  console.log(`Prompt:${prompt}`);
-  console.log(`Context:${context}`);
+  let recipeElement = document.querySelector("#recipe");
+  recipeElement.classList.remove("hidden");
+  recipeElement.innerHTML = `<div class="generating">⏳Generating a Dessert Recipe for ${instructionsInput.value}</div>`;
+
   axios.get(apiUrl).then(displayRecipe);
 }
 
